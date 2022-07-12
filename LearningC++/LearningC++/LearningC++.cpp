@@ -26,16 +26,40 @@ int plusOne_B(const int num)
     return num + 1;
 }
 
+//incrementing an integer by pointer is possible, it directly changes whatever is stored in memory.
+void incrementByPointer(int* ptr)
+{
+    *ptr += 1;
+}
+
+//incrementing an integer by reference like this is not possible.
+//this should work for modifying data in bigger objects, but it doesnt let you overwrite a standalone integer.
+void incrementByReference(int& i)
+{
+    i *= 1;
+}
+
 int main()
 {
     //the preferred way to manage objects: smart pointers like
     unique_ptr<Calculator> cPtr(new Calculator());
+
     //just like standard ("raw") pointers, use the -> arrow to access the value.
     cPtr->Calculate(10, '+', 2);
 
     //the only way to create a pointer to an int is to allocate it the normal way first, then create the pointer.
     int bigN = 10;
     int* bigNptr = &bigN;
+    //print 10
+    cout << "Initial Value: " << bigN << endl;
+
+    incrementByPointer(bigNptr);
+    //print 11
+    cout << "By Pointer: " << bigN << endl;
+
+    incrementByReference(*bigNptr);
+    //print 11 again!!!
+    cout << "By Reference: " << bigN << endl;
 
     int xx = plusOne(1);
     int yy = plusOne(*bigNptr);
@@ -61,8 +85,15 @@ int main()
         cout << random.in_range(2, 10) << endl;
     cout << endl;
 
-    //-------- CALCULATOR -----------
 
+    run_calculator();
+
+    return 0;
+}
+
+//this is taken from the getting started tutorial by microsoft.
+void run_calculator()
+{
     double x = 0.0;
     double y = 0.0;
     double result = 0.0;
@@ -83,8 +114,6 @@ int main()
         result = c.Calculate(x, oper, y);
         cout << "Result is: " << result << endl;
     }
-
-    return 0;
 }
 
 // Run program: Ctrl + F5 or Debug > Start Without Debugging menu
