@@ -4,6 +4,7 @@
 #include <iostream>
 #include "Calculator.h"
 #include "Randomizer.h"
+#include "Person.h"
 
 using namespace std;
 
@@ -39,7 +40,62 @@ void incrementByReference(int& i)
     i *= 1;
 }
 
-int main()
+//this is taken from the getting started tutorial by microsoft.
+void run_calculator()
+{
+    double x = 0.0;
+    double y = 0.0;
+    double result = 0.0;
+    char oper = '+';
+
+    cout << "Calculator Console Application" << endl << endl;
+    cout << "Please enter the operation to perform. Format: a+b | a-b | a*b | a/b" << endl;
+
+    Calculator c;
+    while (true)
+    {
+        cin >> x >> oper >> y;
+        if (oper == '/' && y == 0)
+        {
+            cout << "Can't divide by 0." << endl;
+            continue;
+        }
+        result = c.Calculate(x, oper, y);
+        cout << "Result is: " << result << endl;
+    }
+}
+
+//change a persons first name by passing a reference to the object.
+void change_name_ref(Person& p, std::string nName)
+{
+    p.FirstName = nName;
+}
+
+//change a persons first name by using the pointer to the object.
+//this ptr can not be const!
+void change_name_ptr(Person* pptr, std::string nName)
+{
+    pptr->FirstName = nName;
+}
+
+//print the full name of a person. prototype method
+void print_name(Person& p);
+
+//testing things when using an actual class for storing data.
+void run_person_tests()
+{
+    //creating two unique pointers to two seperate persons.
+    unique_ptr<Person> pptrA(new Person("Max", "Monday"));
+    unique_ptr<Person> pptrB(new Person("Tina", "Tuesday"));
+
+    change_name_ref(*pptrA, "Mike");
+    print_name(*pptrA);
+
+    change_name_ptr(pptrB.get(), "Tim");
+    print_name(*pptrB);
+}
+
+void run_numbers_test()
 {
     //the preferred way to manage objects: smart pointers like
     unique_ptr<Calculator> cPtr(new Calculator());
@@ -81,39 +137,22 @@ int main()
     //Does this mean that it is automatically created and destroyed at the end of the scope?
     Randomizer random;
 
-    for(int i = 0; i < 40; ++i)
+    for (int i = 0; i < 40; ++i)
         cout << random.in_range(2, 10) << endl;
     cout << endl;
+}
 
-
-    run_calculator();
+int main()
+{
+    run_person_tests();
 
     return 0;
 }
 
-//this is taken from the getting started tutorial by microsoft.
-void run_calculator()
+//implement the print_name function
+void print_name(Person& p)
 {
-    double x = 0.0;
-    double y = 0.0;
-    double result = 0.0;
-    char oper = '+';
-
-    cout << "Calculator Console Application" << endl << endl;
-    cout << "Please enter the operation to perform. Format: a+b | a-b | a*b | a/b" << endl;
-
-    Calculator c;
-    while (true)
-    {
-        cin >> x >> oper >> y;
-        if (oper == '/' && y == 0)
-        {
-            cout << "Can't divide by 0." << endl;
-            continue;
-        }
-        result = c.Calculate(x, oper, y);
-        cout << "Result is: " << result << endl;
-    }
+    cout << p.ToString() << endl;
 }
 
 // Run program: Ctrl + F5 or Debug > Start Without Debugging menu
