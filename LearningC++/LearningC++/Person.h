@@ -3,6 +3,9 @@
 
 using namespace std;
 
+/// <summary>
+/// Class that represents a person with a first name and a last name.
+/// </summary>
 class Person
 {
 public:
@@ -13,6 +16,12 @@ public:
 	{
 		FirstName = fName;
 		LastName = lName;
+	}
+
+	Person()
+	{
+		FirstName = "";
+		LastName = "";
 	}
 
 	std::string ToString();

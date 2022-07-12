@@ -5,6 +5,7 @@
 #include "Calculator.h"
 #include "Randomizer.h"
 #include "Person.h"
+#include <vector>
 
 using namespace std;
 
@@ -89,10 +90,39 @@ void run_person_tests()
     unique_ptr<Person> pptrB(new Person("Tina", "Tuesday"));
 
     change_name_ref(*pptrA, "Mike");
-    print_name(*pptrA);
 
     change_name_ptr(pptrB.get(), "Tim");
-    print_name(*pptrB);
+
+    //a vector (collection) of person with a size of 20
+    vector<Person> people(20);
+    //note: this fully initializes all 20 elements with the default ctor, so all elements names will be empty strings.
+
+    //add both to the list
+    //note: this will add them to the end of the vector.
+    people.push_back(*pptrA);
+    people.push_back(*pptrB);
+
+    //reserve memory for up to 25 elements
+    people.reserve(25);
+
+    cout << "vector size: " << people.size() << endl;
+    cout << "vector capc: " << people.capacity() << endl; //capacity is 30. Why?
+
+    //print every person in the list.
+    for (int i = 0; i < people.size(); ++i)
+        //checking if the pointer at the index in the vector is valid (not 0)
+        if (&people.at(i))
+            print_name(people.at(i));
+        else //this should never happen with .size()? 
+            cout << "null pointer";
+
+    //pointer to first element
+    Person* ptr = &people.at(0);
+    //index 21 should be Tim Tuesday.
+    cout << (ptr + 21)->ToString() << endl;
+
+    vector<Person>::const_iterator it = people.begin();
+
 }
 
 void run_numbers_test()
