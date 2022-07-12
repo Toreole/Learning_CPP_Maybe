@@ -13,11 +13,33 @@ int test(int* numberByPointer)
     return *numberByPointer + 1;
 }
 
+//the const int& uses the pointed-to int object.
+//making it const is useful since the value should only be read inside the function
+int plusOne(const int& num)
+{
+    return num + 1;
+}
+
+//where is the functional difference to plusOne? 
+int plusOne_B(const int num)
+{
+    return num + 1;
+}
+
 int main()
 {
+    //the preferred way to manage objects: smart pointers like
+    unique_ptr<Calculator> cPtr(new Calculator());
+    //just like standard ("raw") pointers, use the -> arrow to access the value.
+    cPtr->Calculate(10, '+', 2);
+
     //the only way to create a pointer to an int is to allocate it the normal way first, then create the pointer.
     int bigN = 10;
     int* bigNptr = &bigN;
+
+    int xx = plusOne(1);
+    int yy = plusOne(*bigNptr);
+    int zz = plusOne_B(*bigNptr);
 
     //expected to print 11
     cout << test(bigNptr) << endl;
