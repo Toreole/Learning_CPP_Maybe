@@ -3,6 +3,7 @@
 
 #include <iostream>
 #include "Calculator.h"
+#include "Randomizer.h"
 
 using namespace std;
 
@@ -12,6 +13,14 @@ int main()
     double y = 0.0;
     double result = 0.0;
     char oper = '+';
+
+    Randomizer random;
+
+    for(int i = 0; i < 40; ++i)
+        cout << random.in_range(2, 10) << endl;
+    cout << endl;
+
+
 
     cout << "Calculator Console Application" << endl << endl;
     cout << "Please enter the operation to perform. Format: a+b | a-b | a*b | a/b" << endl;
