@@ -18,5 +18,9 @@ public:
 
 	void set_firstName(std::string name);
 	void set_lastName(std::string name);
+
+private:
+	std::string firstName;
+	std::string lastName;
 };
 

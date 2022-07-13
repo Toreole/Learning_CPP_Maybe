@@ -2,9 +2,6 @@
 
 using namespace std;
 
-std::string firstName;
-std::string lastName;
-
 Person::Person(std::string fName, std::string lName)
 {
 	firstName = fName;

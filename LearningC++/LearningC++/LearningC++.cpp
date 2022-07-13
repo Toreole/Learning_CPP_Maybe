@@ -204,10 +204,12 @@ void run_numbers_test()
     cout << endl;
 }
 
+//checking out smart pointers real quick.
+void run_smart_ptr_test();
+
 int main()
 {
-    run_person_tests();
-
+    run_smart_ptr_test();
     return 0;
 }
 
@@ -215,6 +217,36 @@ int main()
 void print_name(Person& p)
 {
     cout << p.ToString() << endl;
+}
+
+void run_smart_ptr_test()
+{
+    //the official preferred way to create a shared ptr.
+    shared_ptr<Person> sp1 = make_shared<Person>("Wendy", "Wednesday");
+
+    //auto = var. can be recognized by the compiler and optimally the programmer reading this.
+    auto sp2 = make_shared<Person>("Frank", "Friday");
+
+    //shares the pointer, increments ref count.
+    //sp3 is Wendy Wednesday
+    auto sp3 = sp1;
+
+    //initialize with copy constructor. increments ref count.
+    //sp4 is Frank Friday
+    shared_ptr<Person> sp4(sp2);
+
+    //should print Wendy Wednesday as nothing has changed.
+    cout << sp3->ToString() << endl;
+
+    //swapping sp1 and sp2
+    sp1.swap(sp2);
+
+    //should print Frank Friday, because only sp1 and sp2 should be affected.
+    cout << sp4->ToString() << endl;
+
+    //should print Frank Friday again because sp1 and sp2 have swapped.
+    cout << sp1->ToString() << endl;
+
 }
 
 // Run program: Ctrl + F5 or Debug > Start Without Debugging menu
