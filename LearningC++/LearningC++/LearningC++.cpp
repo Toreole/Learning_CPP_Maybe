@@ -93,35 +93,64 @@ void run_person_tests()
 
     change_name_ptr(pptrB.get(), "Tim");
 
-    //a vector (collection) of person with a size of 20
-    vector<Person> people(20);
-    //note: this fully initializes all 20 elements with the default ctor, so all elements names will be empty strings.
+    //a vector (collection) of person with a size of 10
+    vector<Person> people(10);
+    //note: this fully initializes all 10 elements with the default ctor, so all elements names will be empty strings.
 
     //add both to the list
     //note: this will add them to the end of the vector.
     people.push_back(*pptrA);
     people.push_back(*pptrB);
 
-    //reserve memory for up to 25 elements
-    people.reserve(25);
+    //reserve memory for up to 15 elements
+    people.reserve(15);
 
+    //try to access a not-yet-initialized element at the end of the vector:
+    //should obviously be an error.
+    try
+    {
+        Person testElement = people.at(13);
+        cout << testElement.ToString();
+    }
+    catch (exception ex)
+    {
+        cout << ex.what() << endl;
+    }
+
+    vector<Person>::const_iterator it = people.begin();
+    Person thirdPerson("Samantha", "Saturday");
+    int index = 0;
+    cout << "specify index (range 0 - 12)" << endl;
+    cin >> index;
+    if (index < 0)
+        index = 0;
+    else if (index > people.size())
+        index = people.size();
+    //try to insert at specified index.
+    people.insert(it + index, thirdPerson);
+
+    cout << "--------" << endl;
+
+    //print the vector size and capacity
     cout << "vector size: " << people.size() << endl;
-    cout << "vector capc: " << people.capacity() << endl; //capacity is 30. Why?
+    cout << "vector capc: " << people.capacity() << endl; 
 
+    cout << "--------" << endl;
     //print every person in the list.
     for (int i = 0; i < people.size(); ++i)
         //checking if the pointer at the index in the vector is valid (not 0)
         if (&people.at(i))
-            print_name(people.at(i));
+            cout << i << ": " << people.at(i).ToString() << endl;
         else //this should never happen with .size()? 
             cout << "null pointer";
+    cout << "--------" << endl;
 
     //pointer to first element
     Person* ptr = &people.at(0);
     //index 21 should be Tim Tuesday.
-    cout << (ptr + 21)->ToString() << endl;
+    cout << (ptr + 11)->ToString() << endl;
 
-    vector<Person>::const_iterator it = people.begin();
+
 
 }
 
