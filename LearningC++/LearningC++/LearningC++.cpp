@@ -69,14 +69,14 @@ void run_calculator()
 //change a persons first name by passing a reference to the object.
 void change_name_ref(Person& p, std::string nName)
 {
-    p.FirstName = nName;
+    p.set_firstName(nName);
 }
 
 //change a persons first name by using the pointer to the object.
 //this ptr can not be const!
 void change_name_ptr(Person* pptr, std::string nName)
 {
-    pptr->FirstName = nName;
+    pptr->set_firstName(nName);
 }
 
 //print the full name of a person. prototype method
@@ -128,6 +128,9 @@ void run_person_tests()
         index = people.size();
     //try to insert at specified index.
     people.insert(it + index, thirdPerson);
+
+    //remove element at index 1 from the vector
+    people.erase(it + 1);
 
     cout << "--------" << endl;
 

@@ -1,7 +1,6 @@
 #pragma once
-#include <string>
 
-using namespace std;
+#include <string>
 
 /// <summary>
 /// Class that represents a person with a first name and a last name.
@@ -9,21 +8,15 @@ using namespace std;
 class Person
 {
 public:
-	std::string FirstName;
-	std::string LastName;
-
-	Person(std::string fName, std::string lName)
-	{
-		FirstName = fName;
-		LastName = lName;
-	}
-
-	Person()
-	{
-		FirstName = "";
-		LastName = "";
-	}
+	Person(std::string fName, std::string lName);
+	Person();
 
 	std::string ToString();
+
+	std::string get_firstName();
+	std::string get_lastName();
+
+	void set_firstName(std::string name);
+	void set_lastName(std::string name);
 };
 
