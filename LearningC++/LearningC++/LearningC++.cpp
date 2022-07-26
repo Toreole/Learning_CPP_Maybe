@@ -6,6 +6,7 @@
 #include "Randomizer.h"
 #include "Person.h"
 #include <vector>
+#include <Windows.h>
 
 using namespace std;
 
@@ -207,9 +208,15 @@ void run_numbers_test()
 //checking out smart pointers real quick.
 void run_smart_ptr_test();
 
+//checking value type behaviour of classes
+void run_value_type_test();
+
+//test writing to the console with different text colors.
+void run_colors_test();
+
 int main()
 {
-    run_smart_ptr_test();
+    run_colors_test();
     return 0;
 }
 
@@ -236,17 +243,55 @@ void run_smart_ptr_test()
     shared_ptr<Person> sp4(sp2);
 
     //should print Wendy Wednesday as nothing has changed.
-    cout << sp3->ToString() << endl;
+    cout << "sp3: " << sp3->ToString() << endl;
 
     //swapping sp1 and sp2
     sp1.swap(sp2);
 
     //should print Frank Friday, because only sp1 and sp2 should be affected.
-    cout << sp4->ToString() << endl;
+    cout << "sp4: " << sp4->ToString() << endl;
 
     //should print Frank Friday again because sp1 and sp2 have swapped.
-    cout << sp1->ToString() << endl;
+    cout << "sp1: " << sp1->ToString() << endl;
 
+}
+
+void run_value_type_test()
+{
+    //create a person
+    Person p1("Emil", "E");
+    //Because classes are value types by default, p2 creates a COPY of p1.
+    Person p2 = p1;
+
+    //change p2s name
+    p2.set_firstName("Emma");
+
+    //result: p1 and p2 show different names, because theyre different objects.
+    cout << "p1: " << p1.ToString() << endl;
+    cout << "p2: " << p2.ToString() << endl;
+
+    cout << "----------------" << endl;
+
+    //using pointers obviously doesnt copy anything because well theyre just pointers.
+    Person p3("James", "J");
+    Person* p4 = &p3;
+
+    //change data of the object being pointed to
+    p4->set_firstName("Jannet");
+
+    //obviously "both" are affected, since its only one Person object in memory.
+    cout << "p3: " << p3.ToString() << endl;
+    cout << "p4*: " << p4->ToString() << endl;
+}
+
+void run_colors_test()
+{
+    HANDLE handle = GetStdHandle(STD_OUTPUT_HANDLE);
+    for (int c = 1; c <= 15; ++c)
+    {
+        SetConsoleTextAttribute(handle, c);
+        cout << c << " - ";
+    }
 }
 
 // Run program: Ctrl + F5 or Debug > Start Without Debugging menu
