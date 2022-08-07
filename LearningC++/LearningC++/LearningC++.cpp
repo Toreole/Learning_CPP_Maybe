@@ -7,6 +7,7 @@
 #include "Person.h"
 #include <vector>
 #include <Windows.h>
+#include <fstream>
 
 using namespace std;
 
@@ -214,9 +215,49 @@ void run_value_type_test();
 //test writing to the console with different text colors.
 void run_colors_test();
 
+void run_string_alloc_test()
+{
+    char testString[12] = "hello world";
+    char* cptr = &testString[0];
+
+    size_t size = 5;
+    char* gptr = (char*)std::malloc(size);
+    if (gptr == NULL)
+        return;
+    gptr[0] = 'a';
+    gptr[1] = 'b';
+    gptr[2] = 'c';
+    gptr[3] = 'd';
+    gptr[4] = 'e';
+    cout << gptr[2] << endl;
+    free(gptr);
+
+    Worker* w = new Worker();
+    w->jobTitle = "Junior Systems Engineer and general cool guy, also idk just a man guy dude bro";
+    w->set_firstName("Michael A");
+    w->set_lastName("Dungburdoner");
+
+    cout << sizeof(*w) << " " << sizeof(Worker) << endl;
+    delete w;
+    //run_colors_test();
+}
+
 int main()
 {
-    run_colors_test();
+    //as expected, the file will be created in the same folder as the .exe file that is being run.
+    //this will "replace" any existing file with the same name by default if no other open mode is specified.
+    std::ios_base::open_mode mode(1 << 3); //input mode: "out" = https://en.cppreference.com/w/cpp/io/basic_ofstream/open "append" to the end of the file.
+    std::ofstream filestream("log.txt");//, mode);
+    //same as std::cout, you write to the stream with the << operator.
+    filestream << "This is a bunch of text." << std::endl;
+    filestream << "This is more text on a seperate line." << std::endl;
+    //as always, streams need to be closed at the end.
+    filestream.close();
+    //the same filestream object can be used to re-open the same file, and add more text to the end of it.
+    filestream.open("log.txt", mode);
+    //you can directly write using the .write method aswell.
+    filestream.write("This text was written by the write method instead.\n",52);
+    filestream.close();
     return 0;
 }
 

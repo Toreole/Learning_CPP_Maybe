@@ -24,3 +24,8 @@ private:
 	std::string lastName;
 };
 
+class Worker : public Person
+{
+public: 
+	std::string jobTitle;
+};
