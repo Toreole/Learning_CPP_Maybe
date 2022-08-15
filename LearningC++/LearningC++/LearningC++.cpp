@@ -242,7 +242,7 @@ void run_string_alloc_test()
     //run_colors_test();
 }
 
-int main()
+void fileTest()
 {
     //as expected, the file will be created in the same folder as the .exe file that is being run.
     //this will "replace" any existing file with the same name by default if no other open mode is specified.
@@ -256,8 +256,28 @@ int main()
     //the same filestream object can be used to re-open the same file, and add more text to the end of it.
     filestream.open("log.txt", mode);
     //you can directly write using the .write method aswell.
-    filestream.write("This text was written by the write method instead.\n",52);
+    filestream.write("This text was written by the write method instead.\n", 52);
     filestream.close();
+}
+
+int main()
+{
+    Person* personA = new Person("Helga", "Hubert");
+    Person* personB = new Person("Jumbo", "Johnson");
+    Person* personC = new Person("Richard", "Rambunctious");
+    //can use Workplace directly, because its #include in Person.h
+    Workplace* work = new Workplace("Junglemania");
+
+    work->workers.push_back(personA);
+    work->workers.push_back(personB);
+
+    personA->workplace = work;
+    personB->workplace = work;
+
+    work->printWorkerNames();
+
+    std::cout << personC->ToString();
+
     return 0;
 }
 

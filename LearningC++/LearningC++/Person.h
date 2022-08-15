@@ -1,6 +1,7 @@
 #pragma once
 
 #include <string>
+#include "Workplace.h" //this can safely include Workplace.h
 
 /// <summary>
 /// Class that represents a person with a first name and a last name.
@@ -8,6 +9,8 @@
 class Person
 {
 public:
+	Workplace* workplace;
+
 	Person(std::string fName, std::string lName);
 	Person();
 

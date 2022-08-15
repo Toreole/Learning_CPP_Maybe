@@ -16,7 +16,7 @@ Person::Person()
 
 std::string Person::ToString()
 {
-	return firstName + " " + lastName;
+	return workplace == nullptr ? firstName + " " + lastName : firstName + " " + lastName + ", working at: " + workplace->name;
 }
 
 std::string Person::get_firstName()

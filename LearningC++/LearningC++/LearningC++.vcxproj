@@ -131,11 +131,13 @@
     <ClCompile Include="LearningC++.cpp" />
     <ClCompile Include="Person.cpp" />
     <ClCompile Include="Randomizer.cpp" />
+    <ClCompile Include="Workplace.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Calculator.h" />
     <ClInclude Include="Person.h" />
     <ClInclude Include="Randomizer.h" />
+    <ClInclude Include="Workplace.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
